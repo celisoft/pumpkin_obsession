@@ -2,7 +2,7 @@
 
 import pygame
 from pygame.locals import *
-from utils import ImageLoader
+from utils import ImageLoader, MovieLoader
 
 class Scene():
 	base_title = "Pumpkin obsession"
@@ -35,9 +35,21 @@ class TransitionScene(Scene):
 	def display(self):
 		self.screen.blit(self.image, self.image.get_rect())
 
-class VideoScene(Scene):
+class MovieScene(Scene):
 	def __init__(self, video_code):
-		Scene.__init__(self)	
+		Scene.__init__(self)
+		self.movie = MovieLoader.getMovie("MOVIE_CELISOFT_INTRO")
+		self.movie.set_display(self.screen, self.screen.get_rect())
+
+	def start(self):
+		self.movie.play()
+
+	def isPlayingMovie(self):
+		return self.movie.get_busy()
+
+	def stop(self):
+		self.movie.stop()
+		self.movie = None
 		
 class MenuScene(Scene):	
 	def __init__(self, bg_code):

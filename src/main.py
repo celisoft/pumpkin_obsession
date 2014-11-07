@@ -1,19 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os, sys
-import random
-
+import sys
 import pygame
 from pygame.locals import *
 
-from gameobjects import player, scene
+from gameobjects import player, pumpkin, scene
 
 BG_MUSIC = "../data/sounds/music.ogg"
 
 def run():
 	pygame.init()
 
+	lIntroScene = scene.MovieScene("MOVIE_CELISOFT_INTRO")
+	lIntroScene.start()
+	while lIntroScene.isPlayingMovie():
+		pygame.time.wait(60)
+	lIntroScene.stop()
+		
 	lInitScene = scene.TransitionScene("IMG_GAME_INIT")
 	lInitScene.clearScreen()
 
@@ -34,6 +38,8 @@ def run():
 
 	lGameScene = scene.GameScene()
 	lPlayer = player.Player(lGameScene.screen)
+	#lPumpkins = pygame.sprite.OrderedUpdates()
+	#lPumpkins.add(pumpkin.Pumpkin(lGameScene.screen))
 
 	gameStarted = False
 	gameEnded = False
@@ -55,6 +61,7 @@ def run():
 				elif event.type == QUIT:
 					gameEnded = True
 			lPlayer.draw()
+			#lPumpkins.draw(lGameScene)
 		else:
 			lMenuScene.clearScreen()
 			lMenuScene.display()
