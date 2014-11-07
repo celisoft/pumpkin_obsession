@@ -15,9 +15,13 @@ class Scene():
 		else:
 			self.screen = pygame.display.set_mode(( width , height ))
 		pygame.display.set_caption(self.base_title)
+		pygame.display.set_icon(ImageLoader.getSingleSprite("SPRITE_PUMPKIN_ICO"))
 	
 	def updateTitle(self, title):
-		pygame.display.set_caption(self.base_title + " - " + title)	
+		pygame.display.set_caption(self.base_title + " - " + title)
+
+	def toggleFullScreen(self):
+		pygame.display.toggle_fullscreen()
 
 	def clearScreen(self):
 		self.screen.fill((0, 0, 0))
@@ -26,6 +30,7 @@ class TransitionScene(Scene):
 	def __init__(self, img_code):
 		Scene.__init__(self)
 		self.image = ImageLoader.getImage(img_code)
+		self.image = pygame.transform.scale(self.image, (self.screen.get_width(), self.screen.get_height()))
 
 	def display(self):
 		self.screen.blit(self.image, self.image.get_rect())
@@ -38,6 +43,7 @@ class MenuScene(Scene):
 		self.menu_size = 0
 
 		self.background = ImageLoader.getImage(bg_code)
+		self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))
 
 	def addMenuEntry(self, menuEntry):
 		self.menuentries.update({self.menu_size: menuEntry})

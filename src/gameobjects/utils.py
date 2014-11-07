@@ -5,16 +5,16 @@ from pygame import image
 
 class ImageLoader():	
 	images = {
-		"IMG_GAME_BRAND":"../data/images/celisoft.png",
-		"IMG_GAME_INIT":"../data/images/pumpkin.jpg"
+		"IMG_GAME_INIT":"../data/images/pumpkin_obsession.png"
 	}
 		
 	sprites = {
-		"SPRITE_PUMPKIN":"../data/sprites/pumpkin.png"
+		"SPRITE_PUMPKIN":"../data/sprites/pumpkin.png",
+		"SPRITE_PUMPKIN_ICO":"../data/sprites/pumpkin_ico.png"
 	}	
 
 	spritesheets = {
-		"SHEET_PLAYER":"../data/sprites/player_spritesheet.png",
+		"SHEET_PLAYER":"../data/sprites/player_spritesheet.png"
 	}
 
 	@classmethod
@@ -24,7 +24,7 @@ class ImageLoader():
 				if os.path.exists(img_path):
 					return image.load(img_path)
 				else:
-					raise "ImageLoader cannot load image [" + img_path + "]."
+					raise Exception("ImageLoader cannot load image [" + img_path + "] -> File does not exist.")
 
 	@classmethod
 	def getSingleSprite(self, code):
@@ -33,7 +33,7 @@ class ImageLoader():
 				if os.path.exists(sprite_path):
 					return image.load(sprite_path)
 				else:
-					raise "ImageLoader cannot load sprite [" + sprite_path + "]."
+					raise Exception("ImageLoader cannot load sprite [" + sprite_path + "] -> File does not exist.")
 
 	@classmethod
 	def loadSpritesheet(self, code):
@@ -42,7 +42,7 @@ class ImageLoader():
 				if os.path.exists(sprite_path):
 					return image.load(sprite_path)
 				else:
-					raise "ImageLoader cannot load sprite [" + sprite_path + "]."
+					raise Exception("ImageLoader cannot load spritesheet [" + sprite_path + "] -> File does not exist.")
 
 class SpriteSheet():	
 	def __init__(self, code):
@@ -60,7 +60,6 @@ class PlayerSpriteSheet(SpriteSheet):
 	def split(self):
 		sprites = []
 		for s in range(9):
-			print self.square_size*s
 			sprites.append(self.sheet_image.subsurface(self.square_size*s, 0, self.square_size, self.square_size))
 		return sprites
 		

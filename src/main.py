@@ -50,6 +50,8 @@ def run():
 						lPlayer.moveLeft()
 					elif event.key == pygame.K_SPACE:
 						lPlayer.jump()
+					elif event.key == pygame.K_f:
+						lGameScene.toggleFullScreen()
 				elif event.type == QUIT:
 					gameEnded = True
 			lPlayer.draw()
