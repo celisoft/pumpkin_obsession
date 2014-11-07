@@ -4,5 +4,6 @@
 *.DS_Store
 *.bak
 *.pyc
+*.core
 *.goutputstream*
 *~
