@@ -23,8 +23,7 @@ class Player(pygame.sprite.Sprite):
 		self.move_height = surface.get_height() / self.spritesheet.square_size
 		
 		self.setSprite()
-		
-		self.level = 1
+
 		self.score = 0
 
 	def setSprite(self, code=None):
