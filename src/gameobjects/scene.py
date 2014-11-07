@@ -34,6 +34,10 @@ class TransitionScene(Scene):
 
 	def display(self):
 		self.screen.blit(self.image, self.image.get_rect())
+
+class VideoScene(Scene):
+	def __init__(self, video_code):
+		Scene.__init__(self)	
 		
 class MenuScene(Scene):	
 	def __init__(self, bg_code):
