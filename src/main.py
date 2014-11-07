@@ -7,7 +7,7 @@ import random
 import pygame
 from pygame.locals import *
 
-from gameobjects import command, player, scene
+from gameobjects import player, scene
 
 BG_MUSIC = "../data/sounds/music.ogg"
 
@@ -70,7 +70,7 @@ def run():
 
 		pygame.time.wait(60)
 		pygame.display.flip()
-	command.ExitCommand().execute()
+	pygame.quit()
 
 if __name__ == "__main__":
 	run()
