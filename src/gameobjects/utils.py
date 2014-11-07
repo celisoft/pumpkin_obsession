@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from pygame import image
+from pygame import image, movie
 
 class ImageLoader():	
 	images = {
@@ -44,6 +44,20 @@ class ImageLoader():
 				else:
 					raise Exception("ImageLoader cannot load spritesheet [" + sprite_path + "] -> File does not exist.")
 
+class MovieLoader():
+	movies = {
+		"MOVIE_CELISOFT_INTRO":"../data/movies/celisoft.mpg"
+	}
+
+	@classmethod
+	def getMovie(self, code):
+		for movie_code, movie_path in self.movies.items():
+			if movie_code == code:
+				if os.path.exists(movie_path):
+					return movie.Movie(movie_path)
+				else:
+					raise Exception("ImageLoader cannot load image [" + img_path + "] -> File does not exist.")
+	
 class SpriteSheet():	
 	def __init__(self, code):
 		self.sheet_image = ImageLoader.loadSpritesheet(code)

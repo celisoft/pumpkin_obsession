@@ -38,18 +38,21 @@ def run():
 
 	lGameScene = scene.GameScene()
 	lPlayer = player.Player(lGameScene.screen)
-	#lPumpkins = pygame.sprite.OrderedUpdates()
-	#lPumpkins.add(pumpkin.Pumpkin(lGameScene.screen))
+	
+	lPumpkins = []
 
 	gameStarted = False
 	gameEnded = False
-	
+	pygame.time.set_timer(pygame.USEREVENT, 2000)
 	while not gameEnded:
 		if gameStarted:	
 			lGameScene.clearScreen()
 			lPlayer.wait()
 			for event in pygame.event.get():
-				if event.type == pygame.KEYDOWN:
+				if event.type == pygame.USEREVENT:
+					lPumpkin = pumpkin.Pumpkin(lGameScene.screen)
+					lPumpkins.append(lPumpkin)
+				elif event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_RIGHT:
 						lPlayer.moveRight()
 					elif event.key == pygame.K_LEFT:
@@ -61,7 +64,10 @@ def run():
 				elif event.type == QUIT:
 					gameEnded = True
 			lPlayer.draw()
-			#lPumpkins.draw(lGameScene)
+
+			for p in lPumpkins:
+				p.move()
+				p.draw()
 		else:
 			lMenuScene.clearScreen()
 			lMenuScene.display()
