@@ -8,10 +8,11 @@ class Player(pygame.sprite.Sprite):
 	PLAYER_RIGHT_2 = 1
 	PLAYER_RIGHT_STOP = 2
 	PLAYER_FACE = 3
-	PLAYER_BOTTOM = 4
-	PLAYER_LEFT_1 = 5
-	PLAYER_LEFT_2 = 6
-	PLAYER_LEFT_STOP = 7
+	PLAYER_BOTTOM_DOWN = 4
+	PLAYER_BOTTOM_UP = 5
+	PLAYER_LEFT_1 = 6
+	PLAYER_LEFT_2 = 7
+	PLAYER_LEFT_STOP = 8
 	
 	def __init__(self, surface):
 		pygame.sprite.Sprite.__init__(self)
@@ -38,24 +39,27 @@ class Player(pygame.sprite.Sprite):
 			self.image = self.sprites[code]
 
 	def moveRight(self):
-		if self.current_sprite in [self.PLAYER_FACE , self.PLAYER_BOTTOM, self.PLAYER_RIGHT_2]:
+		if self.current_sprite in [self.PLAYER_FACE , self.PLAYER_BOTTOM_DOWN, self.PLAYER_RIGHT_2]:
 			self.setSprite(self.PLAYER_RIGHT_1)
 		else:
 			self.setSprite(self.PLAYER_RIGHT_2)
 		self.rect.right += self.spritesheet.square_size
 
 	def moveLeft(self):
-		if self.current_sprite in [self.PLAYER_FACE , self.PLAYER_BOTTOM, self.PLAYER_LEFT_2]:
+		if self.current_sprite in [self.PLAYER_FACE , self.PLAYER_BOTTOM_DOWN, self.PLAYER_LEFT_2]:
 			self.setSprite(self.PLAYER_LEFT_1)
 		else:
 			self.setSprite(self.PLAYER_LEFT_2)
 		self.rect.right -= self.spritesheet.square_size
 
-	def stay(self):
+	def stopMove(self):
 		if self.current_sprite in [self.PLAYER_RIGHT_1, self.PLAYER_RIGHT_2]:
 			self.setSprite(self.PLAYER_RIGHT_STOP)
 		elif self.current_sprite in [self.PLAYER_LEFT_1, self.PLAYER_LEFT_2]:
 			self.setSprite(self.PLAYER_LEFT_STOP)
+
+	def wait(self):
+		self.setSprite(self.PLAYER_BOTTOM_DOWN)
 		
 	def draw(self):
 		self.group.draw(self.surface)

@@ -59,7 +59,8 @@ class PlayerSpriteSheet(SpriteSheet):
 
 	def split(self):
 		sprites = []
-		for s in range(8):
+		for s in range(9):
+			print self.square_size*s
 			sprites.append(self.sheet_image.subsurface(self.square_size*s, 0, self.square_size, self.square_size))
 		return sprites
 		

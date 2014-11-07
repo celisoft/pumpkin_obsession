@@ -41,6 +41,8 @@ def run():
 	while not gameEnded:
 		if gameStarted:
 			lGameScene.clearScreen()
+			lPlayer.wait()
+			lPlayer.draw()
 
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
@@ -53,8 +55,9 @@ def run():
 			lPlayer.draw()
 			pygame.display.flip()
 			lGameScene.clearScreen()
-			lPlayer.stay()
+			lPlayer.stopMove()
 			lPlayer.draw()
+
 		else:
 			lMenuScene.clearScreen()
 			lMenuScene.display()
