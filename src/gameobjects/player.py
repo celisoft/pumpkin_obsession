@@ -58,8 +58,13 @@ class Player(pygame.sprite.Sprite):
 		elif self.current_sprite in [self.PLAYER_LEFT_1, self.PLAYER_LEFT_2]:
 			self.setSprite(self.PLAYER_LEFT_STOP)
 
+	def jump(self):
+		self.setSprite(self.PLAYER_BOTTOM_UP)
+		self.rect.top -= (self.spritesheet.square_size * 0.75)
+			
 	def wait(self):
 		self.setSprite(self.PLAYER_BOTTOM_DOWN)
+		self.rect.top = self.surface.get_height() - self.spritesheet.square_size
 		
 	def draw(self):
 		self.group.draw(self.surface)

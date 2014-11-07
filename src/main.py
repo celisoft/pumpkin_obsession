@@ -39,25 +39,20 @@ def run():
 	gameEnded = False
 	
 	while not gameEnded:
-		if gameStarted:
+		if gameStarted:	
 			lGameScene.clearScreen()
 			lPlayer.wait()
-			lPlayer.draw()
-
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_RIGHT:
 						lPlayer.moveRight()
 					elif event.key == pygame.K_LEFT:
 						lPlayer.moveLeft()
+					elif event.key == pygame.K_SPACE:
+						lPlayer.jump()
 				elif event.type == QUIT:
 					gameEnded = True
 			lPlayer.draw()
-			pygame.display.flip()
-			lGameScene.clearScreen()
-			lPlayer.stopMove()
-			lPlayer.draw()
-
 		else:
 			lMenuScene.clearScreen()
 			lMenuScene.display()
