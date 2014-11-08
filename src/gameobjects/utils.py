@@ -6,13 +6,15 @@ from pygame import image, movie
 class ImageLoader():	
 	images = {
 		"IMG_GAME_INIT":"../data/images/pumpkin_obsession.png",
+		"IMG_GAME_BG":"../data/images/game_background.png",
 		"IMG_END":"../data/images/end.png"
 	}
 		
 	sprites = {
 		"SPRITE_PUMPKIN":"../data/sprites/pumpkin.png",
 		"SPRITE_PUMPKIN_ICO":"../data/sprites/pumpkin_ico.png",
-		"SPRITE_GROUND":"../data/sprites/cubesol.png"
+		"SPRITE_GROUND":"../data/sprites/cubesol.png",
+		"SPRITE_GRAVE":"../data/sprites/rip.png"
 	}	
 
 	spritesheets = {

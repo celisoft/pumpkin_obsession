@@ -42,7 +42,7 @@ def run():
 
 	#Initialize the game scene with player and pumpkin manager
 	lGameScene = scene.GameScene()
-	lPlayer = player.Player(lGameScene.screen)
+	lPlayer = player.Player(lGameScene)
 	lPumpkins = pumpkin.PumpkinManager(lGameScene.screen)
 	lGround = ground.Ground(lGameScene.screen)
 
@@ -58,7 +58,8 @@ def run():
 		if gameStarted:	
 			#Game loop
 			lGameScene.clear_screen()
-
+			lGameScene.refresh()
+			
 			#Set the player waiting position
 			lPlayer.wait()
 			
@@ -71,7 +72,7 @@ def run():
 						lPlayer.move_right()
 					elif event.key == pygame.K_LEFT:
 						lPlayer.move_left()
-					elif event.key == pygame.K_SPACE:
+					elif event.key == pygame.K_SPACE or event.key == pygame.K_UP:
 						lPlayer.jump()
 					elif event.key == pygame.K_f:
 						lGameScene.toggle_fullscreen()
@@ -89,7 +90,7 @@ def run():
 					lEndScene.clear_screen()
 					lEndScene.display()
 					pygame.display.flip()
-					pygame.time.wait(1000)
+					pygame.time.wait(1500)
 
 					#Back to start menu
 					gameStarted = False

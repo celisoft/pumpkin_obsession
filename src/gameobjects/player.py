@@ -3,6 +3,7 @@
 import pygame
 from utils import PlayerSpriteSheet
 from ground import GroundSquare
+from scene import GameScene
 
 class Player(pygame.sprite.Sprite):
 	PLAYER_RIGHT_1 = 0
@@ -18,13 +19,15 @@ class Player(pygame.sprite.Sprite):
 	PLAYER_MOVE_STEP = 64
 	PLAYER_MIN_LEFT = 2
 	
-	def __init__(self, surface):
+	def __init__(self, scene):
 		pygame.sprite.Sprite.__init__(self)
-		self.surface = surface
+		
+		self.scene = scene
+		self.surface = self.scene.get_surface()
 		self.spritesheet = PlayerSpriteSheet("SHEET_PLAYER")
 		self.sprites = self.spritesheet.split()
-		self.move_width = surface.get_width() / self.PLAYER_MOVE_STEP
-		self.move_height = surface.get_height() / self.spritesheet.square_size
+		self.move_width = self.surface.get_width() / self.PLAYER_MOVE_STEP
+		self.move_height = self.surface.get_height() / self.spritesheet.square_size
 		
 		self.set_sprite()
 		self.score = 0
@@ -58,7 +61,7 @@ class Player(pygame.sprite.Sprite):
 			self.set_sprite(self.PLAYER_LEFT_2)
 
 		goto = self.rect.right - self.PLAYER_MOVE_STEP
-		if goto > 0:
+		if goto > self.PLAYER_MOVE_STEP:
 			self.rect.right -= self.PLAYER_MOVE_STEP
 
 	def jump(self):
@@ -77,12 +80,11 @@ class Player(pygame.sprite.Sprite):
 
 	def score_update(self):
 		self.score += 1
-		#TODO remove this line
-		print "Player score updated to " + str(self.score)
+		self.scene.update_score_area(self.score)
 
 	def loose_live(self):
 		self.lives -= 1
-		print "Player is dying once again !"
+		self.scene.update_life_area(self.lives)
 
 	def get_lives(self):
 		return self.lives

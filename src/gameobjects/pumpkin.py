@@ -8,7 +8,7 @@ from ground import Ground
 class Pumpkin(pygame.sprite.Sprite):
 	tile_size = 64
 	
-	def __init__(self, surface):
+	def __init__(self, surface, left=None):
 		pygame.sprite.Sprite.__init__(self)
 		self.surface = surface
 
@@ -18,9 +18,16 @@ class Pumpkin(pygame.sprite.Sprite):
 		self.move_height = self.surface.get_height() / self.tile_size * 0.75	
 
 		self.rect = self.image.get_rect()
-		self.rect.left = random.randint(0, self.move_width-1) * self.tile_size
+		if left is None:
+			self.rect.left = random.randint(1, self.move_width-1) * self.tile_size
+		else:
+			self.rect.left = left * self.tile_size
+			
+		self.group = pygame.sprite.GroupSingle(self)
 
-		self.group = pygame.sprite.GroupSingle(self)		
+	def get_tilesize(self):
+		""" Return the tile size """
+		return self.tile_size
 
 	def move(self):
 		""" Move pumpkin down """

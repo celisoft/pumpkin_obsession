@@ -3,11 +3,12 @@
 import pygame
 from pygame.locals import *
 from utils import ImageLoader, MovieLoader
+from area import LiveArea, ScoreArea
 
 class Scene():
 	base_title = "Pumpkin obsession"
-	scene_default_width = 640
-	scene_default_height = 480
+	scene_default_width = 1920 #640
+	scene_default_height = 1080 #480
 	
 	def __init__(self, width = None, height=None):
 		if (width is None) | (height is None):
@@ -102,4 +103,40 @@ class GameScene(Scene):
 	def __init__(self):
 		Scene.__init__(self)
 
+		self.background = ImageLoader.get_image("IMG_GAME_BG")
+		self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))
+		
+		width = self.screen.get_width() / 6
+		height = self.screen.get_height()
+		self.info_zone = pygame.Surface((width, height))
+		self.info_zone.fill((0, 0, 0))
+		self.info_zone.set_colorkey((0,0,0))
+		self.rect = self.info_zone.get_rect()
+		self.rect.left = self.screen.get_width() - width
+
+		self.score_area = ScoreArea(self.info_zone)
+		self.life_area = LiveArea(self.info_zone)
+
+		self.update_score_area(0)
+		self.update_life_area(5)
+
+	def update_score_area(self, score):
+		""" Update the score area """
+		self.score_area.update_text(score)
+
+	def update_life_area(self, life):
+		""" Update the score area """
+		self.life_area.update_text(life)
+		
+	def get_surface(self):
+		""" Screen getter """
+		return self.screen
+
+	def refresh(self):
+		""" Refresh the screen """
+		self.info_zone.fill((0, 0, 0))
+		self.score_area.refresh()
+		self.life_area.refresh()
+		self.screen.blit(self.background, self.background.get_rect())
+		self.screen.blit(self.info_zone, self.rect)
 		
