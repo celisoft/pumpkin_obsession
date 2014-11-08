@@ -3,6 +3,7 @@
 import random
 import pygame
 from utils import ImageLoader
+from ground import Ground
 
 class Pumpkin(pygame.sprite.Sprite):
 	tile_size = 64
@@ -14,8 +15,8 @@ class Pumpkin(pygame.sprite.Sprite):
 		self.image = ImageLoader.get_single_sprite("SPRITE_PUMPKIN")
 		
 		self.move_width = self.surface.get_width() / self.tile_size
-		self.move_height = self.surface.get_height() / self.tile_size * 0.75
-		
+		self.move_height = self.surface.get_height() / self.tile_size * 0.75	
+
 		self.rect = self.image.get_rect()
 		self.rect.left = random.randint(0, self.move_width-1) * self.tile_size
 
@@ -55,5 +56,20 @@ class PumpkinManager():
 
 		#update the player score if necessary
 		if len(collide) > 0:
-			player.score_update()
+			return True
+		else:
+			return False
+
+	def collide_with_ground(self, ground):
+		""" Check if player sprite is in collision with a pumpkin one and update the score if necessary """
+		lGround = ground.get_sprite_group()
+
+		#check if there is a collision between sprites, automatically remove collided pumpkin
+		collide = pygame.sprite.groupcollide(lGround, self.pumpkins, False, True)
+
+		#if there is collision, end game !!
+		if len(collide) > 0:
+			return True
+		else:
+			return False
 		

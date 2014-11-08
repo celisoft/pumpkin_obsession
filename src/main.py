@@ -5,7 +5,7 @@ import sys
 import pygame
 from pygame.locals import *
 
-from gameobjects import player, pumpkin, scene
+from gameobjects import ground, player, pumpkin, scene
 
 BG_MUSIC = "../data/sounds/music.ogg"
 
@@ -44,6 +44,7 @@ def run():
 	lGameScene = scene.GameScene()
 	lPlayer = player.Player(lGameScene.screen)
 	lPumpkins = pumpkin.PumpkinManager(lGameScene.screen)
+	lGround = ground.Ground(lGameScene.screen)
 
 	#The game is not yet started and is not ended
 	gameStarted = False
@@ -78,9 +79,25 @@ def run():
 					gameEnded = True
 
 			#Check if the user catch something
-			lPumpkins.collide_with_player(lPlayer)
-					
-			#Display the player sprite
+			if lPumpkins.collide_with_player(lPlayer):
+				lPlayer.score_update()
+			elif lPumpkins.collide_with_ground(lGround):
+				lPlayer.loose_live()
+				if lPlayer.get_lives() == 0:
+					#Display the loose game scene if the player loose the game
+					lEndScene = scene.TransitionScene("IMG_END")
+					lEndScene.clear_screen()
+					lEndScene.display()
+					pygame.display.flip()
+					pygame.time.wait(1000)
+
+					#Back to start menu
+					gameStarted = False
+
+			#Display the ground
+			lGround.draw()
+			
+			#Display the player
 			lPlayer.draw()
 
 			#Display all pumpkins
