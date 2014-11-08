@@ -77,7 +77,7 @@ class MenuScene(Scene):
 		self.screen.blit(self.background, self.background.get_rect())
 		pos_y = 0
 		for menuentry_key, menuentry in self.menuentries.items():
-			pos_y = self.screen.get_height()/3 + (menuentry_key * menuentry.getPixelStep())
+			pos_y = self.screen.get_height()/3 + (menuentry_key * menuentry.get_pixel_step())
 			menuentry.display(self.screen, self.screen.get_width()/2, pos_y)
 
 class MenuSceneEntry():
@@ -89,7 +89,7 @@ class MenuSceneEntry():
 		self.font = pygame.font.Font(self.font_type, self.font_size)
 		self.text = self.font.render(text, True, self.font_color)
 
-	def getPixelStep(self):
+	def get_pixel_step(self):
 		""" Return the vertical step between menu entries """
 		return self.font_size + 5
 		
