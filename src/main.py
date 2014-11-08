@@ -77,6 +77,9 @@ def run():
 				elif event.type == QUIT:
 					gameEnded = True
 
+			#Check if the user catch something
+			lPumpkins.collide_with_player(lPlayer)
+					
 			#Display the player sprite
 			lPlayer.draw()
 
@@ -96,7 +99,7 @@ def run():
 				elif event.type == QUIT:
 					gameEnded = True
 
-		#We only need 60 FPS not more
+		#We only need 60 FPS not more (avoid screen blink)
 		pygame.time.wait(60)
 		pygame.display.flip()
 

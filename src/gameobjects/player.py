@@ -64,6 +64,13 @@ class Player(pygame.sprite.Sprite):
 		""" Set the waiting position for the player """
 		self.set_sprite(self.PLAYER_BOTTOM_DOWN)
 		self.rect.top = self.surface.get_height() - self.spritesheet.square_size
+
+	def get_sprite_group(self):
+		return self.group
+
+	def score_update(self):
+		self.score += 1
+		print "Player score updated to " + str(self.score)
 		
 	def draw(self):
 		""" Draw the player sprite """

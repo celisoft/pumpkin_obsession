@@ -45,3 +45,15 @@ class PumpkinManager():
 		for lPumpkin in self.pumpkins.sprites():
 			lPumpkin.move()
 		self.pumpkins.draw(self.surface)
+
+	def collide_with_player(self, player):
+		""" Check if player sprite is in collision with a pumpkin one and update the score if necessary """
+		lPlayerGroup = player.get_sprite_group()
+
+		#check if there is a collision between sprites, automatically remove collided pumpkin
+		collide = pygame.sprite.groupcollide(lPlayerGroup, self.pumpkins, False, True)
+
+		#update the player score if necessary
+		if len(collide) > 0:
+			player.score_update()
+		
