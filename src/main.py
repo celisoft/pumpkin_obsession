@@ -48,6 +48,9 @@ class PumpkinObsession():
 		lMenuScene.add_menu_entry(scene.MenuSceneEntry("(J)OUER"))
 		lMenuScene.add_menu_entry(scene.MenuSceneEntry("(Q)UITTER"))
 
+		#Allow key repeat
+		pygame.key.set_repeat(50, 50)
+
 		#Initialize the game scene with player and pumpkin manager
 		lGameScene = scene.GameScene()
 		lPlayer = player.Player(lGameScene)
@@ -60,6 +63,8 @@ class PumpkinObsession():
 	
 		#Add a USEREVENT that will be used to generate a pumpkin every 2 seconds 
 		pygame.time.set_timer(pygame.USEREVENT, 2000)
+
+		lClock = pygame.time.Clock()
 
 		#Cycle while the game is not finished
 		while not gameEnded:
@@ -134,6 +139,7 @@ class PumpkinObsession():
 
 			#We only need 60 FPS not more (avoid screen blink)
 			pygame.time.wait(60)
+			lClock.tick(60)
 			pygame.display.flip()
 
 		#Cleanly exit pygame
