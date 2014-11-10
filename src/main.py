@@ -89,6 +89,8 @@ class PumpkinObsession():
 							lPlayer.jump()
 						elif event.key == pygame.K_f:
 							lGameScene.toggle_fullscreen()
+						elif event.key == pygame.K_q:
+							gameEnded = True
 					elif event.type == pygame.QUIT:
 						gameEnded = True
 
