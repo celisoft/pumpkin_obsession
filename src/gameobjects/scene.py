@@ -7,8 +7,8 @@ from area import LiveArea, ScoreArea
 
 class Scene():
 	base_title = "Pumpkin obsession"
-	scene_default_width = 1920 #640
-	scene_default_height = 1080 #480
+	scene_default_width = 800
+	scene_default_height = 600
 	
 	def __init__(self, width = None, height=None):
 		if (width is None) | (height is None):
