@@ -51,7 +51,10 @@ class Player(pygame.sprite.Sprite):
 			self.set_sprite(self.PLAYER_RIGHT_1)
 		else:
 			self.set_sprite(self.PLAYER_RIGHT_2)
-		self.rect.right += self.PLAYER_MOVE_STEP
+
+		goto = self.rect.right + self.PLAYER_MOVE_STEP
+		if goto < self.surface.get_width() +  self.PLAYER_MOVE_STEP:
+			self.rect.right += self.PLAYER_MOVE_STEP
 
 	def move_left(self):
 		""" Go to the left with alternative sprite """
