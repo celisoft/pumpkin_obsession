@@ -99,6 +99,7 @@ class PumpkinObsession():
 
 				#Check if the user catch something
 				if lPumpkins.collide_with_player(lPlayer):
+					lPlayer.blink()
 					get_pumpkin_sound.play()
 					lPlayer.score_update()
 				elif lPumpkins.collide_with_ground(lGround):

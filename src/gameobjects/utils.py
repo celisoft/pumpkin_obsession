@@ -82,7 +82,7 @@ class PlayerSpriteSheet(SpriteSheet):
 	def split(self):
 		""" Split into multiple sprites the player spritesheet """
 		sprites = []
-		for s in range(9):
+		for s in range(10):
 			sprites.append(self.sheet_image.subsurface(self.square_size*s, 0, self.square_size, self.square_size))
 		return sprites
 		

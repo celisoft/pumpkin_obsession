@@ -15,6 +15,7 @@ class Player(pygame.sprite.Sprite):
 	PLAYER_LEFT_1 = 6
 	PLAYER_LEFT_2 = 7
 	PLAYER_LEFT_STOP = 8
+	PLAYER_BLINK = 9
 
 	PLAYER_MOVE_STEP = 64
 	PLAYER_MIN_LEFT = 2
@@ -77,19 +78,26 @@ class Player(pygame.sprite.Sprite):
 		self.set_sprite(self.PLAYER_BOTTOM_DOWN)
 		self.rect.top = (self.surface.get_height() - self.spritesheet.square_size) - GroundSquare.get_tile_size()
 
+	def blink(self):
+		""" Set the player skeleton blinking in pumpkin orange """
+		self.set_sprite(self.PLAYER_BLINK)
+		
 	def get_sprite_group(self):
 		""" Return the sprite group """
 		return self.group
 
 	def score_update(self):
+		""" Update the score """
 		self.score += 1
 		self.scene.update_score_area(self.score)
 
 	def loose_live(self):
+		""" Loose a live """
 		self.lives -= 1
 		self.scene.update_life_area(self.lives)
 
 	def get_lives(self):
+		""" Return the number of lives """
 		return self.lives
 		
 	def draw(self):
