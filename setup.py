@@ -11,5 +11,4 @@ setup(
 	author_email='celine.liberal@mail.com',
 	url='http://www.celisoft.com/games/pumpkin_obsession/',
 	packages=['src', 'src.gameobjects'],
-	include_package_data=True
 )
