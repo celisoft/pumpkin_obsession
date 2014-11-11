@@ -55,3 +55,30 @@ class LiveArea(pygame.sprite.Sprite):
 		""" Display the sprite and the text """
 		self.group.draw(self.surface)
 		self.surface.blit(self.life_text_image, self.life_text_rect)
+
+class NotificationArea():
+	def __init__(self, surface, txt=None):
+		self.surface = surface
+		
+		self.font = pygame.font.Font(None, 48)
+		self.update_text(txt)
+
+	def update_text(self, txt=None):
+		""" Update the text and prepare it to be displayed """
+		if txt is not None:
+			self.text = str(txt)
+			self.text_image = self.font.render(self.text, True, (255, 255, 255))
+			self.text_rect = self.text_image.get_rect()
+			self.text_rect.centerx = self.surface.get_rect().centerx
+			self.text_rect.centery = self.surface.get_rect().centery
+		else:
+			self.text = txt
+
+	def reset_text(self):
+		""" Used to reset the text """
+		self.text = None
+
+	def refresh(self):
+		""" Display the text in the surface middle (X & Y)"""
+		if self.text is not None:
+			self.surface.blit(self.text_image, self.text_rect)

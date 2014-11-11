@@ -33,6 +33,7 @@ class Player(pygame.sprite.Sprite):
 		self.set_sprite()
 		self.score = 0
 		self.lives = 5
+		self.level = 0
 
 	def set_sprite(self, code=None):
 		""" Set the sprite, if no code given, the skeleton is in front of us """
@@ -87,13 +88,23 @@ class Player(pygame.sprite.Sprite):
 		return self.group
 
 	def score_update(self):
-		""" Update the score """
+		""" Update the score and the level if necessary """
 		self.score += 1
+		if self.score / 10 > self.level:
+			self.level += 1
+			if self.lives < 5:
+				self.lives +=1
+			self.scene.update_notification_area("Level " + str( self.level + 1 ))
 		self.scene.update_score_area(self.score)
 
 	def loose_live(self):
 		""" Loose a live """
 		self.lives -= 1
+		self.scene.update_life_area(self.lives)
+
+	def win_live(self):
+		""" Loose a live """
+		self.lives += 1
 		self.scene.update_life_area(self.lives)
 
 	def get_lives(self):

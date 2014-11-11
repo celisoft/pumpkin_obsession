@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import pygame
-from pygame.locals import *
 from utils import ImageLoader, MovieLoader
-from area import LiveArea, ScoreArea
+import area
 
 class Scene():
 	base_title = "Pumpkin obsession"
@@ -114,19 +113,29 @@ class GameScene(Scene):
 		self.rect = self.info_zone.get_rect()
 		self.rect.left = self.screen.get_width() - width
 
-		self.score_area = ScoreArea(self.info_zone)
-		self.life_area = LiveArea(self.info_zone)
+		self.score_area = area.ScoreArea(self.info_zone)
+		self.life_area = area.LiveArea(self.info_zone)
+		self.notif_area = area.NotificationArea(self.screen)
 
 		self.update_score_area(0)
 		self.update_life_area(5)
+		self.update_notification_area("Catch a max of pumpkins !")
 
 	def update_score_area(self, score):
 		""" Update the score area """
 		self.score_area.update_text(score)
 
 	def update_life_area(self, life):
-		""" Update the score area """
+		""" Update the life area """
 		self.life_area.update_text(life)
+
+	def update_notification_area(self, txt):
+		""" Update the notification area """
+		self.notif_area.update_text(txt)
+
+	def reset_notification_area(self):
+		""" Used to reset the game notification area """
+		self.notif_area.reset_text()
 		
 	def get_surface(self):
 		""" Screen getter """
@@ -135,8 +144,11 @@ class GameScene(Scene):
 	def refresh(self):
 		""" Refresh the screen """
 		self.info_zone.fill((0, 0, 0))
+		
 		self.score_area.refresh()
 		self.life_area.refresh()
+		
 		self.screen.blit(self.background, self.background.get_rect())
+		self.notif_area.refresh()
 		self.screen.blit(self.info_zone, self.rect)
 		

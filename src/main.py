@@ -48,8 +48,8 @@ class PumpkinObsession():
 
 		#Initalize the main game menu
 		lMenuScene = scene.MenuScene("IMG_GAME_INIT")
-		lMenuScene.add_menu_entry(scene.MenuSceneEntry("(J)OUER"))
-		lMenuScene.add_menu_entry(scene.MenuSceneEntry("(Q)UITTER"))
+		lMenuScene.add_menu_entry(scene.MenuSceneEntry("(P)lay"))
+		lMenuScene.add_menu_entry(scene.MenuSceneEntry("(Q)uit"))
 
 		#Allow key repeat
 		pygame.key.set_repeat(50, 50)
@@ -67,6 +67,9 @@ class PumpkinObsession():
 		#Add a USEREVENT that will be used to generate a pumpkin every 2 seconds 
 		pygame.time.set_timer(pygame.USEREVENT, 2000)
 
+		#Add a USEREVENT that will reset notifaction area every 3.5 seconds 
+		pygame.time.set_timer(pygame.USEREVENT+1, 3500)
+
 		lClock = pygame.time.Clock()
 
 		#Cycle while the game is not finished
@@ -82,7 +85,7 @@ class PumpkinObsession():
 				for event in pygame.event.get():
 					if event.type == pygame.USEREVENT:
 						#Create a new pumpkin
-						lPumpkins.generate_pumpkin()
+						lPumpkins.generate_pumpkin()						
 					elif event.type == pygame.KEYDOWN:
 						if event.key == pygame.K_RIGHT:
 							lPlayer.move_right()
@@ -94,6 +97,9 @@ class PumpkinObsession():
 							lGameScene.toggle_fullscreen()
 						elif event.key == pygame.K_q:
 							gameEnded = True
+					elif event.type == pygame.USEREVENT+1:
+						#Erase the notification
+						lGameScene.reset_notification_area()
 					elif event.type == pygame.QUIT:
 						gameEnded = True
 
@@ -136,7 +142,7 @@ class PumpkinObsession():
 
 				for event in pygame.event.get():
 					if event.type == pygame.KEYDOWN:
-						if event.key == pygame.K_j:
+						if event.key == pygame.K_p:
 							gameStarted = True
 						elif event.key == pygame.K_q:
 							gameEnded = True
