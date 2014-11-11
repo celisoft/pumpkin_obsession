@@ -16,12 +16,15 @@ class PumpkinObsession():
 		#Initialize pygame
 		pygame.init()
 
-		#Playing the celisoft intro video
-		lIntroScene = scene.MovieScene("MOVIE_CELISOFT_INTRO")
-		lIntroScene.start()
-		while lIntroScene.is_movie_playing():
-			pygame.time.wait(60)
-		lIntroScene.stop()
+		#Playing the celisoft intro video if not on Mac (movie module not implemented)
+		if sys.platform != "darwin":
+			lIntroScene = scene.MovieScene("MOVIE_CELISOFT_INTRO")
+			lIntroScene.start()
+			while lIntroScene.is_movie_playing():
+				pygame.time.wait(60)
+			lIntroScene.stop()
+		else:
+			print "Skip introduction video : not compatible with Darwin / MacOS"
 
 		#Show the game splash screen during 1 second
 		lInitScene = scene.TransitionScene("IMG_GAME_INIT")
