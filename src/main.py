@@ -48,11 +48,8 @@ class PumpkinObsession():
 
 		#Initalize the main game menu
 		lMenuScene = scene.MenuScene("IMG_GAME_INIT")
-		lMenuScene.add_menu_entry(scene.MenuSceneEntry("(P)lay"))
-		lMenuScene.add_menu_entry(scene.MenuSceneEntry("(Q)uit"))
-
-		#Allow key repeat
-		pygame.key.set_repeat(50, 50)
+		lMenuScene.add_menu_entry(scene.MenuSceneEntry("Play"))
+		lMenuScene.add_menu_entry(scene.MenuSceneEntry("Quit"))
 
 		#Initialize the game scene with player and pumpkin manager
 		lGameScene = scene.GameScene()
@@ -75,7 +72,11 @@ class PumpkinObsession():
 		#Cycle while the game is not finished
 		while not gameEnded:
 			if gameStarted:	
-				#Game loop				
+				#Game loop
+				
+				#Allow key repeat
+				pygame.key.set_repeat(50, 50)
+				
 				lGameScene.clear_screen()
 				lGameScene.refresh()
 			
@@ -142,10 +143,15 @@ class PumpkinObsession():
 
 				for event in pygame.event.get():
 					if event.type == pygame.KEYDOWN:
-						if event.key == pygame.K_p:
-							gameStarted = True
-						elif event.key == pygame.K_q:
-							gameEnded = True
+						if event.key == pygame.K_RIGHT:
+							lMenuScene.update_cursor_position()
+						elif event.key == pygame.K_LEFT:
+							lMenuScene.update_cursor_position()
+						elif event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
+							if lMenuScene.get_selection() == 0:
+								gameStarted = True
+							else:
+								gameEnded = True
 					elif event.type == pygame.QUIT:
 						gameEnded = True
 

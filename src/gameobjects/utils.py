@@ -14,7 +14,8 @@ class ImageLoader():
 		"SPRITE_PUMPKIN":"../data/sprites/pumpkin.png",
 		"SPRITE_PUMPKIN_ICO":"../data/sprites/pumpkin_ico.png",
 		"SPRITE_GROUND":"../data/sprites/cubesol.png",
-		"SPRITE_GRAVE":"../data/sprites/rip.png"
+		"SPRITE_GRAVE":"../data/sprites/rip.png",
+		"SPRITE_HAND":"../data/sprites/hand.png"
 	}	
 
 	spritesheets = {

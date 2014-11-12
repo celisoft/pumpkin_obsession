@@ -63,22 +63,44 @@ class MenuScene(Scene):
 		Scene.__init__(self)
 
 		self.menuentries = {}
-		self.menu_size = 0
+		self.menu_size = 0		
 		self.background = ImageLoader.get_image(bg_code)
 		self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))
+
+		self.cursor = ImageLoader.get_single_sprite("SPRITE_HAND")
+		self.cursor_rect = self.cursor.get_rect()			
+
+		self.left = self.screen.get_width()/8
+		self.right = self.screen.get_width()/2.1
+		self.cursor_rect.left = self.left
+		self.cursor_rect.top = self.screen.get_height()*2/3 + self.cursor.get_height()/3
+		self.selection = 0
 
 	def add_menu_entry(self, menuEntry):
 		""" Add a menu entry """
 		self.menuentries.update({self.menu_size: menuEntry})
 		self.menu_size += 1
 
+	def update_cursor_position(self):
+		""" Set the position oh the skeleton hand """
+		if self.cursor_rect.left == self.left:
+			self.cursor_rect.left = self.right
+			self.selection = 1
+		else:
+			self.cursor_rect.left = self.left
+			self.selection = 0
+
+	def get_selection(self):
+		return self.selection
+
 	def display(self):
 		""" Display the menu, that's to say all menu entries """
 		self.screen.blit(self.background, self.background.get_rect())
-		pos_y = 0
+		self.screen.blit(self.cursor, self.cursor_rect)
 		for menuentry_key, menuentry in self.menuentries.items():
-			pos_y = self.screen.get_height()/3 + (menuentry_key * menuentry.get_pixel_step())
-			menuentry.display(self.screen, self.screen.get_width()/2, pos_y)
+			pos_x = self.screen.get_width()*(menuentry_key+1)*0.35
+			pos_y = self.screen.get_height()*2.5/3
+			menuentry.display(self.screen, pos_x, pos_y)
 
 class MenuSceneEntry():
 	font_type = None
@@ -88,14 +110,14 @@ class MenuSceneEntry():
 	def __init__(self, text, command = None):
 		self.font = pygame.font.Font(self.font_type, self.font_size)
 		self.text = self.font.render(text, True, self.font_color)
-
-	def get_pixel_step(self):
-		""" Return the vertical step between menu entries """
-		return self.font_size + 5
 		
 	def display(self, screen, x, y):
 		""" Display the menu entry """
 		text_rect = self.text.get_rect(centerx=x, centery=y)
+
+		encadre = pygame.Rect(text_rect.left -10, text_rect.top -5, text_rect.width + 25, text_rect.height + 10)
+		
+		pygame.draw.rect(screen, self.font_color, encadre, 1)
 		screen.blit(self.text, text_rect)	
 
 class GameScene(Scene):
