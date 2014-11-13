@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(
-	name='Pumpkin Obsession',
+	name='Pumpkin_Obsession',
 	version='1.0',
 	license='BSD',
 	description='Python arcade game with a skeleton and some pumpkins',
