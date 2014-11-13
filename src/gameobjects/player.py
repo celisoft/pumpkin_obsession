@@ -90,12 +90,20 @@ class Player(pygame.sprite.Sprite):
 	def score_update(self):
 		""" Update the score and the level if necessary """
 		self.score += 1
+		self.scene.update_score_area(self.score)
 		if self.score / 10 > self.level:
 			self.level += 1
-			if self.lives < 5:
+			if self.lives < 3:
 				self.lives +=1
 			self.scene.update_notification_area("Level " + str( self.level + 1 ))
-		self.scene.update_score_area(self.score)
+			return True
+		return False
+
+	def reset_data(self):
+		""" Reset player data """
+		self.score = 0
+		self.lives = 5
+		self.level = 0
 
 	def loose_live(self):
 		""" Loose a live """

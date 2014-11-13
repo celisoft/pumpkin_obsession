@@ -60,7 +60,10 @@ class PumpkinObsession():
 		#The game is not yet started and is not ended
 		gameStarted = False
 		gameEnded = False
-	
+
+		#Allow key repeat
+		#pygame.key.set_repeat(50, 50)
+		
 		#Add a USEREVENT that will be used to generate a pumpkin every 2 seconds 
 		pygame.time.set_timer(pygame.USEREVENT, 2000)
 
@@ -73,9 +76,6 @@ class PumpkinObsession():
 		while not gameEnded:
 			if gameStarted:	
 				#Game loop
-				
-				#Allow key repeat
-				pygame.key.set_repeat(50, 50)
 				
 				lGameScene.clear_screen()
 				lGameScene.refresh()
@@ -108,10 +108,16 @@ class PumpkinObsession():
 				if lPumpkins.collide_with_player(lPlayer):
 					lPlayer.blink()
 					get_pumpkin_sound.play()
-					lPlayer.score_update()
+					levelup = lPlayer.score_update()
+					if levelup:
+						#Increase the game speed
+						lPumpkins.increase_pumpkin_speed(lPlayer.level)
 				elif lPumpkins.collide_with_ground(lGround):
 					lPlayer.loose_live()
 					if lPlayer.get_lives() == 0:
+						#Reset player
+						lPlayer.reset_data()
+						
 						#Stop the game background music
 						pygame.mixer.music.stop()
 
