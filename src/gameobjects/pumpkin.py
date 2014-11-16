@@ -86,4 +86,8 @@ class PumpkinManager():
 			return True
 		else:
 			return False
-		
+
+	def reset(self):
+		""" Clear all pumpkins and reset difficulty """
+		self.pumpkins.remove_sprites_of_layer(0)
+		self.difficulty = 1

@@ -135,6 +135,9 @@ class PumpkinObsession():
 						
 							#Reset game scene
 							lGameScene.reset()
+							
+							#Reset pumpkin manager
+							lPumpkins.reset()
 
 							#Stop the game background music
 							pygame.mixer.music.stop()
