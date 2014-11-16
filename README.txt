@@ -8,13 +8,13 @@ they touch the ground.
 
 2- What is the distribution license ?
 
-This game is under NewBSD licence.
+This game is under NewBSD license.
 
 3- Which OS are supported ?
 
 The game has been tested on FreeBSD, MacOS and Ubuntu.
-But due to the portability of Python / Pygame you can use it under Windows(r),
-OpenBSD, every Linux distribution, AmigaOS, MorphOS ...
+But, due to the portability of Python / Pygame you can use it under Windows(r),
+OpenBSD, every Linux distributions, AmigaOS, MorphOS ...
 
 4- Why is there no .exe or .app ?
 
@@ -24,8 +24,10 @@ And a .deb, a .rpm, a .dmg ... God do you really need this ?
 
 Blender and Gimp for videos, images and sprites creation.
 Anjuta and vim for coding.
+GarageBand(r) for music and sounds.
 
 6- Known bug and issues
 
 - Fullscreen and movie playback are not supported on MacOS.
 - Fullscreen mode doesn't change game resolution.
+- Fullscreen mode only works during the game by pressing "F" key
