@@ -60,6 +60,7 @@ class PumpkinObsession():
 		#The game is not yet started and is not ended
 		gameStarted = False
 		gameEnded = False
+		gamePaused = False
 
 		#Allow key repeat
 		#pygame.key.set_repeat(50, 50)
@@ -76,72 +77,89 @@ class PumpkinObsession():
 		while not gameEnded:
 			if gameStarted:	
 				#Game loop
-				
-				lGameScene.clear_screen()
-				lGameScene.refresh()
 			
-				#Set the player waiting position
-				lPlayer.wait()
+				if gamePaused:
+					lGameScene.clear_screen()
+					lGameScene.update_notification_area("Game paused")
+					lGameScene.refresh()
+
+					for event in pygame.event.get():
+						if event.type == pygame.KEYDOWN:
+							gamePaused = False
+
+					lPlayer.draw()
+					lGround.draw()
+				else:
+					lGameScene.clear_screen()
+					lGameScene.refresh()
 			
-				for event in pygame.event.get():
-					if event.type == pygame.USEREVENT:
-						#Create a new pumpkin
-						lPumpkins.generate_pumpkin()						
-					elif event.type == pygame.KEYDOWN:
-						if event.key == pygame.K_RIGHT:
-							lPlayer.move_right()
-						elif event.key == pygame.K_LEFT:
-							lPlayer.move_left()
-						elif event.key == pygame.K_SPACE or event.key == pygame.K_UP:
-							lPlayer.jump()
-						elif event.key == pygame.K_f:
-							lGameScene.toggle_fullscreen()
-						elif event.key == pygame.K_q:
+					#Set the player waiting position
+					lPlayer.wait()
+			
+					for event in pygame.event.get():
+						if event.type == pygame.USEREVENT:
+							#Create a new pumpkin
+							lPumpkins.generate_pumpkin()						
+						elif event.type == pygame.KEYDOWN:
+							if event.key == pygame.K_RIGHT:
+								lPlayer.move_right()
+							elif event.key == pygame.K_LEFT:
+								lPlayer.move_left()
+							elif event.key == pygame.K_SPACE or event.key == pygame.K_UP:
+								lPlayer.jump()
+							elif event.key == pygame.K_f:
+								lGameScene.toggle_fullscreen()
+							elif event.key == pygame.K_ESCAPE or event.key == pygame.K_h:
+								gamePaused = True
+							elif event.key == pygame.K_q:
+								gameEnded = True
+						elif event.type == pygame.USEREVENT+1:
+							#Erase the notification
+							lGameScene.reset_notification_area()
+						elif event.type == pygame.QUIT:
 							gameEnded = True
-					elif event.type == pygame.USEREVENT+1:
-						#Erase the notification
-						lGameScene.reset_notification_area()
-					elif event.type == pygame.QUIT:
-						gameEnded = True
 
-				#Check if the user catch something
-				if lPumpkins.collide_with_player(lPlayer):
-					lPlayer.blink()
-					get_pumpkin_sound.play()
-					levelup = lPlayer.score_update()
-					if levelup:
-						#Increase the game speed
-						lPumpkins.increase_pumpkin_speed(lPlayer.level)
-				elif lPumpkins.collide_with_ground(lGround):
-					lPlayer.loose_live()
-					if lPlayer.get_lives() == 0:
-						#Reset player
-						lPlayer.reset_data()
+					#Check if the user catch something
+					if lPumpkins.collide_with_player(lPlayer):
+						lPlayer.blink()
+						get_pumpkin_sound.play()
+						levelup = lPlayer.score_update()
+						if levelup:
+							#Increase the game speed
+							lPumpkins.increase_pumpkin_speed(lPlayer.level)
+					elif lPumpkins.collide_with_ground(lGround):
+						lPlayer.loose_live()
+						if lPlayer.get_lives() == 0:
+							#Reset player
+							lPlayer.reset_data()
 						
-						#Stop the game background music
-						pygame.mixer.music.stop()
+							#Reset game scene
+							lGameScene.reset()
 
-						#Play loose game sound
-						loose_game_sound.play()
-						
-						#Display the loose game scene if the player loose the game
-						lEndScene = scene.TransitionScene("IMG_END")
-						lEndScene.clear_screen()
-						lEndScene.display()
-						pygame.display.flip()
-						pygame.time.wait(4500)
+							#Stop the game background music
+							pygame.mixer.music.stop()
 
-						#Back to start menu
-						gameStarted = False
+							#Play loose game sound
+							loose_game_sound.play()
+							
+							#Display the loose game scene if the player loose the game
+							lEndScene = scene.TransitionScene("IMG_END")
+							lEndScene.clear_screen()
+							lEndScene.display()
+							pygame.display.flip()
+							pygame.time.wait(4500)
 
-				#Display the ground
-				lGround.draw()
+							#Back to start menu
+							gameStarted = False
+
+					#Display the ground
+					lGround.draw()
 			
-				#Display the player
-				lPlayer.draw()
-
-				#Display all pumpkins
-				lPumpkins.move_and_draw()
+					#Display the player
+					lPlayer.draw()
+	
+					#Display all pumpkins
+					lPumpkins.move_and_draw()
 			else:
 				#Menu loop
 				lMenuScene.clear_screen()

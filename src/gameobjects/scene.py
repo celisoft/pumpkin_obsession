@@ -158,7 +158,13 @@ class GameScene(Scene):
 	def reset_notification_area(self):
 		""" Used to reset the game notification area """
 		self.notif_area.reset_text()
-		
+
+	def reset(self):
+		""" Reset data in order to cleanly reload the scene later """
+		self.update_score_area(0)
+		self.update_life_area(5)
+		self.update_notification_area("Catch a max of pumpkins !")
+
 	def get_surface(self):
 		""" Screen getter """
 		return self.screen
