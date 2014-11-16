@@ -28,6 +28,4 @@ GarageBand(r) for music and sounds.
 
 6- Known bug and issues
 
-- Fullscreen and movie playback are not supported on MacOS.
-- Fullscreen mode doesn't change game resolution.
-- Fullscreen mode only works during the game by pressing "F" key
+- Movie playback are not supported on MacOS.
