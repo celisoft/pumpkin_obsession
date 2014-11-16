@@ -149,6 +149,9 @@ class PumpkinObsession():
 							pygame.display.flip()
 							pygame.time.wait(4500)
 
+							#Restart the background music
+							pygame.mixer.music.play(-1)
+
 							#Back to start menu
 							gameStarted = False
 
