@@ -5,13 +5,9 @@ import sys
 import pygame
 from pygame.locals import *
 
-from gameobjects import ground, player, pumpkin, scene
+from gameobjects import ground, player, pumpkin, scene, utils
 
 class PumpkinObsession():
-	BG_MUSIC = "../data/sounds/music.ogg"
-	SND_GET_PUMPKIN = "../data/sounds/get_pumpkin.wav"
-	SND_LOOSE_GAME = "../data/sounds/end.wav"
-	
 	def __init__(self):
 		#Initialize pygame
 		pygame.init()
@@ -38,13 +34,13 @@ class PumpkinObsession():
 			displayInitScene = False
 
 		#Create background music object & launching
-		pygame.mixer.music.load(self.BG_MUSIC)
+		pygame.mixer.music.load(utils.SoundLoader.get_music("BG_MUSIC"))
 		pygame.mixer.music.set_volume(0.25)
 		pygame.mixer.music.play(-1)
 
 		#Create game sounds object
-		self.snd_get_pumpkin = pygame.mixer.Sound(self.SND_GET_PUMPKIN)
-		self.snd_loose_game = pygame.mixer.Sound(self.SND_LOOSE_GAME)
+		self.snd_get_pumpkin = pygame.mixer.Sound(utils.SoundLoader.get_sound("SND_GET_PUMPKIN"))
+		self.snd_loose_game = pygame.mixer.Sound(utils.SoundLoader.get_sound("SND_LOOSE_GAME"))
 
 		#Initalize the main game menu
 		self.menu_scene = scene.MenuScene("IMG_GAME_INIT")
@@ -195,5 +191,9 @@ class PumpkinObsession():
 		#Reset pumpkin manager
 		self.pumpkin_manager.reset()
 
-if __name__ == "__main__":
+def start():
+	print "Starting pumpkin obsession"
 	PumpkinObsession()
+
+if __name__ == "__main__":
+	start()

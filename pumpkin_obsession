@@ -1,15 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env python
+import pumpkin.main
 
-echo "Checking Python version"
-python_path=$(which python)
-if [ -z "${python_path}" ]
-then
-	echo "You must install Python & PyGame to play this game !!"
-	exit 1
-else
-	echo "Found python at: [${python_path}]"
-	echo "Starting Pumpkin Obsession"
-	cd ./src
-	${python_path} -B main.py
-fi
-exit 0
+pumpkin.main.start()
+

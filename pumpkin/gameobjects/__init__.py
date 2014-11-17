@@ -3,4 +3,5 @@ __all__ = [
 'pumpkin',
 'ground',
 'area',
-'scene']
+'scene',
+'utils']

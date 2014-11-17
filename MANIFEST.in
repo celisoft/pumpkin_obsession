@@ -1,2 +1,2 @@
 include pumpkin_obsession README.txt
-recursive-include data *
+recursive-include pumpkin/data *
