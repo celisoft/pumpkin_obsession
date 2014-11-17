@@ -1,1 +1,2 @@
+include pumpkin_obsession README.txt
 recursive-include data *
